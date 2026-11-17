@@ -4,6 +4,8 @@ A "Live Now" home page for OjaLive, a live shopping marketplace for Nigerian buy
 
 Built with Next.js (App Router), TypeScript, Tailwind CSS and shadcn/ui.
 
+Live demo: https://ojalive-live.vercel.app
+
 ## How to run
 
 You need Node.js 20 or newer.
