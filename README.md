@@ -66,4 +66,3 @@ lib/
 - Put the search and category in the URL so a filtered page can be shared
 - Debounce the search and add sorting (most viewers, lowest price)
 - A real session page with the video player, chat and the payment hold flow
-- Add tests with React Testing Library and an automated accessibility check
