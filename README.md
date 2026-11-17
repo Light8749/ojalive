@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OjaLive - Live Now page
 
-## Getting Started
+A "Live Now" home page for OjaLive, a live shopping marketplace for Nigerian buyers. Vendors go live to show products, buyers ask questions, and the payment is held until the buyer confirms delivery.
 
-First, run the development server:
+Built with Next.js (App Router), TypeScript, Tailwind CSS and shadcn/ui.
+
+## How to run
+
+You need Node.js 20 or newer.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To check the production build:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  layout.tsx        font and page metadata
+  page.tsx          the home page, holds the search and category state
+  globals.css       Tailwind import and brand colours
+components/
+  Header.tsx        logo, search bar, sign in button
+  SearchBar.tsx
+  Logo.tsx
+  Hero.tsx
+  CategoryFilter.tsx
+  SessionGrid.tsx   grid + empty state
+  SessionCard.tsx
+  ui/               shadcn/ui components (button, input, badge, card)
+  HowItWorks.tsx
+  StepCard.tsx      one step in How it works (number, title, text)
+  Footer.tsx
+data/
+  sessions.ts       mock live sessions and categories
+lib/
+  format.ts         naira and viewer count formatting
+  utils.ts          cn() helper used by shadcn/ui
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Main decisions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Mobile first.** I started from the phone layout and added columns at bigger sizes (1 column, then 2, 3 and 4). On mobile the search bar moves to its own row under the logo and the category chips scroll sideways instead of wrapping into many lines.
+- **State lives in the page.** The search text and selected category are kept in `page.tsx` and passed down as props. The components themselves don't know about the data source so they are easy to reuse.
+- **Search** matches the product title, vendor name and category, and works together with the category filter. If nothing matches there is an empty state with a "Clear filters" button.
+- **shadcn/ui for the basic pieces.** Button, Input, Badge and Card come from shadcn/ui, which is built on Tailwind, so everything is still styled with Tailwind classes. I changed the primary colour to the OjaLive green. Icons are from lucide-react.
+- **Thumbnails.** Since there is no real video, each card shows a product photo from Unsplash, loaded with `next/image` so it is resized and lazy loaded.
+- **Accessibility.** Semantic `header`, `main`, `section`, `footer` and `nav`, one `h1`, a labelled search input, filter buttons with `aria-pressed`, a live region for the result count, visible focus styles, a screen reader label for the verified tick, and the How it works steps are an ordered list. The whole card is clickable but there is still only one link per card.
+- **Naira formatting** uses `Intl.NumberFormat` with the `en-NG` locale.
 
-## Deploy on Vercel
+## What I would improve with more time
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Loading skeletons while images load, and vendor uploaded thumbnails instead of stock photos
+- Put the search and category in the URL so a filtered page can be shared
+- Debounce the search and add sorting (most viewers, lowest price)
+- A real session page with the video player, chat and the payment hold flow
+- Add tests with React Testing Library and an automated accessibility check
