@@ -35,7 +35,7 @@ components/
   Header.tsx        logo, search bar, sign in button
   SearchBar.tsx
   Logo.tsx
-  Hero.tsx
+  Hero.tsx          hero text with a background image carousel
   CategoryFilter.tsx
   SessionGrid.tsx   grid + empty state
   SessionCard.tsx
@@ -45,6 +45,7 @@ components/
   Footer.tsx
 data/
   sessions.ts       mock live sessions and categories
+  heroSlides.ts     background photos for the hero
 lib/
   format.ts         naira and viewer count formatting
   utils.ts          cn() helper used by shadcn/ui
@@ -57,6 +58,7 @@ lib/
 - **Search** matches the product title, vendor name and category, and works together with the category filter. If nothing matches there is an empty state with a "Clear filters" button.
 - **shadcn/ui for the basic pieces.** Button, Input, Badge and Card come from shadcn/ui, which is built on Tailwind, so everything is still styled with Tailwind classes. I changed the primary colour to the OjaLive green. Icons are from lucide-react.
 - **Thumbnails.** Since there is no real video, each card shows a product photo from Unsplash, loaded with `next/image` so it is resized and lazy loaded.
+- **Hero carousel.** The hero background fades between Nigerian market photos every 5 seconds. It pauses when you hover or tab into it, has dots and previous/next buttons, and does not auto play if the user has "reduce motion" turned on.
 - **Accessibility.** Semantic `header`, `main`, `section`, `footer` and `nav`, one `h1`, a labelled search input, filter buttons with `aria-pressed`, a live region for the result count, visible focus styles, a screen reader label for the verified tick, and the How it works steps are an ordered list. The whole card is clickable but there is still only one link per card.
 - **Naira formatting** uses `Intl.NumberFormat` with the `en-NG` locale.
 
