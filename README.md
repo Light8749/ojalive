@@ -31,6 +31,7 @@ app/
   layout.tsx        font and page metadata
   page.tsx          the home page, holds the search and category state
   globals.css       Tailwind import and brand colours
+  live/[id]/page.tsx  the live session page for one vendor
 components/
   Header.tsx        logo, search bar, sign in button
   SearchBar.tsx
@@ -39,13 +40,15 @@ components/
   CategoryFilter.tsx
   SessionGrid.tsx   grid + empty state
   SessionCard.tsx
-  ui/               shadcn/ui components (button, input, badge, card)
+  live/             LiveHeader, LivePlayer, VendorInfo, ProductPanel, LiveChat
+  ui/               shadcn/ui components (button, input, badge, card, avatar, separator)
   HowItWorks.tsx
   StepCard.tsx      one step in How it works (number, title, text)
   Footer.tsx
 data/
   sessions.ts       mock live sessions and categories
   heroSlides.ts     background photos for the hero
+  chat.ts           starter chat messages for the live page
 lib/
   format.ts         naira and viewer count formatting
   utils.ts          cn() helper used by shadcn/ui
@@ -59,6 +62,7 @@ lib/
 - **shadcn/ui for the basic pieces.** Button, Input, Badge and Card come from shadcn/ui, which is built on Tailwind, so everything is still styled with Tailwind classes. I changed the primary colour to the OjaLive green. Icons are from lucide-react.
 - **Thumbnails.** Since there is no real video, each card shows a product photo from Unsplash, loaded with `next/image` so it is resized and lazy loaded.
 - **Hero carousel.** The hero background fades between Nigerian market photos every 5 seconds. It pauses when you hover or tab into it, has dots and previous/next buttons, and does not auto play if the user has "reduce motion" turned on.
+- **Live session page.** Clicking a card opens `/live/[id]`. It has the stream (the product photo stands in for video), the vendor with a Follow button, the product with price and a Buy now button that explains the payment is held, and a live chat. You can type a message or tap a quick question and it shows up in the chat. These pages are built ahead of time with `generateStaticParams`. On desktop the chat sits next to the video and stays in view when you scroll.
 - **Accessibility.** Semantic `header`, `main`, `section`, `footer` and `nav`, one `h1`, a labelled search input, filter buttons with `aria-pressed`, a live region for the result count, visible focus styles, a screen reader label for the verified tick, and the How it works steps are an ordered list. The whole card is clickable but there is still only one link per card.
 - **Naira formatting** uses `Intl.NumberFormat` with the `en-NG` locale.
 

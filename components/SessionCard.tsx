@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { BadgeCheck, Eye, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -50,12 +51,12 @@ export default function SessionCard({ session }: SessionCardProps) {
 
         <h3 className="mt-1 line-clamp-2 font-semibold leading-snug text-slate-900">
           {/* the link covers the whole card so the full card is clickable */}
-          <a
-            href="#"
+          <Link
+            href={`/live/${session.id}`}
             className="focus:outline-none after:absolute after:inset-0 after:content-['']"
           >
             {session.title}
-          </a>
+          </Link>
         </h3>
 
         <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
